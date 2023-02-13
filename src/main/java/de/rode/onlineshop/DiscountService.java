@@ -4,7 +4,6 @@ import de.rode.onlineshop.exceptions.WrongPasswordException;
 import de.rode.onlineshop.model.Customer;
 import de.rode.onlineshop.model.Discount;
 import de.rode.onlineshop.model.Product;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.List;
 @Slf4j
 public class DiscountService {
 
-    @Getter
     private List<Discount> discounts = new ArrayList<>();
 
     /**

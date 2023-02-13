@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 
 public class ShoppingServiceTest {
 
@@ -121,13 +122,35 @@ public class ShoppingServiceTest {
                 "123"
         );
         ShoppingCart shoppingCart = shoppingService.login(pedro);
-        shoppingService.addToCart(shoppingCart, playstation, 2);
+        shoppingService.addToCart(shoppingCart, playstation, 1);
+        shoppingService.addToCart(shoppingCart, playstation, 1);
 
         // act
         double value = shoppingService.value(shoppingCart);
 
         // assert
         assertThat(value).isEqualTo(900.0);
+    }
+
+    @Test
+    public void newCustomerTest() throws WrongPasswordException {
+        // act
+        shoppingService.register("Manuel");
+    }
+
+    @Test
+    public void wrongPasswordTest1() throws WrongPasswordException {
+        // act
+        Throwable throwable = catchThrowable(() -> discountService.removeAllDiscounts("456"));
+        assertThat(throwable).hasMessage(null);
+    }
+
+
+    @Test
+    public void wrongPasswordTest2() throws WrongPasswordException {
+        // act
+        Throwable throwable = catchThrowable(() -> discountService.addDiscount(Discount.builder().build(), "456"));
+        assertThat(throwable).hasMessage(null);
     }
 
 }
